@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { UrlService } from './service/url.service';
+import { Four04Component } from './four04/four04.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 //---- For in-memorywebapi
@@ -18,13 +20,15 @@ import { UrlService } from './service/url.service';
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    Four04Component
   ],
   imports: [
     BrowserModule,
     FormsModule,
     // HttpModule,
     HttpClientModule,
+    AppRoutingModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // )

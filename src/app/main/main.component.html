@@ -1,6 +1,5 @@
 <div>
   <div>
-    <p>Welcom to use ShortenURL</p>
     <input [(ngModel)]="inputURL" >
     <button (click)="generateShortURL()"  >Generate</button>
     <div *ngIf="errorMessage">
@@ -12,7 +11,7 @@
     <p>
       ShortURL:
       <a href="/api/s/{{returnedURLPair.shortURL}}">
-        short.noclyt.com/api/s/{{returnedURLPair.shortURL}}
+        s.noclyt.com/api/s/{{returnedURLPair.shortURL}}
       </a>
     </p>
     <p>

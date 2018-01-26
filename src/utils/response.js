@@ -1,7 +1,7 @@
 
 function four04(res, shortURL) {
   console.log("redirect");
-  res.redirect("/")
+  res.redirect("/wrong/"+shortURL);
 }
 
 function redirect(res, shortURL, longURL) {
