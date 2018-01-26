@@ -10,7 +10,10 @@
 
   <div *ngIf="returnedURLPair">
     <p>
-      ShortURL: {{returnedURLPair.shortURL}}
+      ShortURL:
+      <a href="/api/s/{{returnedURLPair.shortURL}}">
+        short.noclyt.com/api/s/{{returnedURLPair.shortURL}}
+      </a>
     </p>
     <p>
       LongURL: {{returnedURLPair.longURL}}

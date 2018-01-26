@@ -1,6 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { UrlService } from '../service/url.service';
-import { UrlPair }from '../template/urlPair'
+import { UrlPair } from '../template/urlPair';
+// import { URL_API_DECODE } from '../../assets/url.js'
 
 @Component({
   selector: 'app-main',
