@@ -2,7 +2,10 @@
   <div>
     <p>Welcom to use ShortenURL</p>
     <input [(ngModel)]="inputURL" >
-    <button (click)="generateShortURL()">Generate</button>
+    <button (click)="generateShortURL()"  >Generate</button>
+    <div *ngIf="errorMessage">
+      <p> {{errorMessage}} </p>
+    </div>
   </div>
 
   <div *ngIf="returnedURLPair">
@@ -13,7 +16,5 @@
       LongURL: {{returnedURLPair.longURL}}
     </p>
   </div>
+
 </div>
-
-
-
