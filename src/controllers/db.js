@@ -2,16 +2,15 @@ var ShortenURL = require("../db/db").ShortenURL;
 
 
 /**
- * 用于保存 shortURL 和 longURL
+ * 用于保存 shortURL 和 longURL 进数据库
+ *
+ * callback(shortURL, longURL)
  *
  * @param {*} shortURL
  * @param {*} longURL
  * @param {*} callback
  */
 function saveURLPair(shortURL, longURL, callback) {
-    console.log("Function saveURLPair ");
-    console.log(shortURL);
-    console.log(longURL);
     var urlPair = new ShortenURL({
         shortURL: shortURL,
         longURL: longURL,
@@ -48,10 +47,12 @@ function findShortURLExist(shortURL, callback) {
     )
 }
 
-// 查询短网址
+
 /**
- * 查询短链
+ * 查询短链， 根据短链中的哈希值 shortURL 查询是否则数据库中。
+ *
  * 回调函数 callback(longURL)
+ * 如果短网址不再数据库中，则 longURL === undefined
  * @param {*} shortURL
  * @param {*} callback
  */
@@ -71,7 +72,14 @@ function findByShortURL(shortURL, callback) {
     );
 }
 
-// 查询长网址
+//
+/**
+ * 查询 输入的 longURL 是否则数据库中
+ *
+ * 如果长网址不再数据库中，则 shortURL === undefined
+ * @param {*} longURL
+ * @param {*} callback
+ */
 function findByLongURL(longURL, callback) {
     ShortenURL.findOne(
         {longURL: longURL},
@@ -92,25 +100,3 @@ exports.saveURLPair = saveURLPair;
 exports.findByShortURL = findByShortURL;
 exports.findByLongURL = findByLongURL;
 exports.findShortURLExist = findShortURLExist;
-
-
-// var url1 = new ShortenURL({
-//     shortUrl: "www.baidu.com",
-//     longUrl: "baidu1",
-// })
-
-// url1.save(function(err, ele) {
-//     if (err) return console.log(err);
-//     ele.speak();
-// });
-
-
-// var url2 = new ShortenURL({
-//     shortUrl: "www.taobao.com",
-//     longUrl: "tb",
-// })
-
-// url2.save(function(err, ele) {
-//     if (err) return console.log(err);
-//     ele.speak();
-// });

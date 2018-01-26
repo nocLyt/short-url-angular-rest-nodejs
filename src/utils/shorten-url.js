@@ -2,14 +2,18 @@ var findByLongURL = require('../controllers/db').findByLongURL;
 var responseShortURL = require('./response').responseShortURL;
 hashMD5ToInt = require('./hash').hashMD5ToInt;
 var intToBase62 = require('./hash').intToBase62;
+var incHashValue = require('./hash').incHashValue;
 var saveURLPair = require('../controllers/db').saveURLPair;
 var findShortURLExist = require('../controllers/db').findShortURLExist;
 
 
 /**
+ * 用于解决 hash 冲突的并在冲突解决后将数据加入数据库并返回。
+ *
+ * 缺点：这里多次冲突会造成性能下降！
+ *
  * longURL: 如数的 longURL
  * shorURLInt: hash 后的一个Int 整数
- *
  * callback 参数 (isExist)
  *
  * @param {*} longURL
@@ -18,17 +22,12 @@ var findShortURLExist = require('../controllers/db').findShortURLExist;
  * @param {*} callback
  */
 function collision(longURL, shortURLInt, shortURL, collisionCount, callback) {
-  // console.log("----------------- test Collision ");
-  // console.log(longURL);
-  // console.log(shortURLInt);
-  // console.log(shortURL);
-  // console.log(collisionCount);
 
   findShortURLExist(shortURL, function(isExist){
       // 如果有hash冲突， 则自增 shortURLInt, 获得新的shortURL，继续递归 collision
       if (isExist){
           console.log("Collision happen! This is times " + collisionCount+1);
-          newShortURLInt = shortURLInt + 1;
+          newShortURLInt = incHashValue(shortURLInt);
           return collision(longURL, newShortURLInt, intToBase62(newShortURLInt), collisionCount+1, callback);
       } else { // 不存在 hash 冲突， 则储存
           console.log("Collision Over! We all have " + collisionCount + " times. ");
@@ -42,8 +41,8 @@ function collision(longURL, shortURLInt, shortURL, collisionCount, callback) {
  *
  * 根据 longURL 生成 short URL
  * callback 提供调用返回 http 请求
- *
  * callback(shortURL, longURL)
+ *
  * @param {*} longURL
  * @param {*} callback
  */

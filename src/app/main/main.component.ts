@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
   inputURL: string = "";
   errorMessage: string ="";
 
+  URL_PRE = "s.noclyt.com/api/s/"; // 应该写到配置文件中
+
   @Input() returnedURLPair: UrlPair;
 
   clearErrorMessage(): void {
@@ -59,7 +61,7 @@ export class MainComponent implements OnInit {
    *
    */
   generateShortURL() :void {
-    // console.log(this.inputURL);
+    this.returnedURLPair = undefined;
     var inputURL = this.inputURL.trim()
     //
     if (inputURL === "") {
@@ -72,11 +74,9 @@ export class MainComponent implements OnInit {
     // 判断 inputURL 是否有协议类型，如果没有则添加 http://
     inputURL = this.wrapProtocalHeader(inputURL);
 
-    // // console.log(this.urlService.getShortURLByInputURL(this.inputURL));
     this.urlService.getReturnedURLPairByInputURL(inputURL).subscribe(
       UrlPair => this.returnedURLPair = UrlPair
     )
   }
-
 
 }

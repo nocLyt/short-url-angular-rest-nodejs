@@ -12,6 +12,8 @@ export class Four04Component implements OnInit {
 
   returnedShortURL: string ="";
 
+  URL_PRE : string ="http://s.noclyt.com/api/s/"; // 这个应该写到配置文件中去。
+
   constructor(
     private route: ActivatedRoute,
     private location: Location

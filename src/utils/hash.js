@@ -1,5 +1,5 @@
 var crypto = require('crypto');
-
+const MOD625 = 916132832;
 
 function digitalToBase62(digital){
     var base = 62;
@@ -47,57 +47,13 @@ function intToBase62(shortURLInt) {
 function hashMD5ToInt(longURL) {
     var md5 = crypto.createHash('md5');
     var hash = md5.update(longURL).digest("hex").slice(0, 7);
-    var value = parseInt(hash, 16) % (916132832);
+    var value = parseInt(hash, 16) % MOD625;
     return value;
 }
 
-// console.log(intToBase62(hashMD5ToInt("www.baidu.comiewasdf2")));
-
-
-
+function incHashValue(value) {
+  return (value + 1) % MOD625;
+}
 
 exports.intToBase62 = intToBase62;
 exports.hashMD5ToInt = hashMD5ToInt;
-
-
-//console.log(intToBase62(91611831));
-
-
-
-// function base64(origin_value, offset) {
-//     // 修改
-//     return "abcde";
-// }
-
-// function incBase64(origin_str){
-//     // 返回一个 origin_str + 1 的 string
-//     return "adsfde";
-// }
-
-// function findAGoodShortURL(origin_value, offset, callback){
-//     var shortURL = base64(origin_value, offset);
-//     findShortURLExis(shortURL, function(isExist) {
-//         // 如果存在
-//         if (isExist) {
-
-//         } else {
-//             // 如果不存在 将shortURL 加入 并返回
-
-//         }
-//     })
-// }
-
-// /**
-//  *
-//  * @param {*} longURL
-//  * @param {*} callback
-//  */
-// function geneShortURL(longURL, callback) {
-//     // hash 函数
-//     // // 取前 8 位. 因为 62 ** 5 - 16 ** 7 > 0 and 62 ** 5 - 16 ** 8 < 0
-//     origin_value = hashMD5ToInt(longURL)
-//     //
-//     findAGoodShortURL(origin_value, 0, callback);
-// }
-
-// geneShortURL("www.baidu.cod");
