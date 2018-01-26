@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DOMAIN } from '../../assets/config.js';
 
 @Component({
   selector: 'app-four04',
